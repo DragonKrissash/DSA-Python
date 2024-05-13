@@ -13,6 +13,7 @@ class SLL:
         self.__head=None
         self.__tail=None
         self.__size=0
+        self.__trav=None
 
     def size(self):
         return self.__size
@@ -104,10 +105,22 @@ class SLL:
             del(te)
             self.__size-=1
 
+    def __iter__(self):
+        self.__trav=self.__head
+        return self
+
+    def __next__(self):
+        if self.__trav is None:
+            raise StopIteration
+        x=self.__trav.data
+        self.__trav=self.__trav.next
+        return x
+
 sll=SLL()
 sll.append(4)
 sll.append(5)
 sll.append(10)
+sll.append(15)
 print(sll)
-sll.removeAt(2)
-print(sll)
+for i in sll:
+    print(i)
