@@ -57,7 +57,7 @@ class SLL:
         self.__size+=1
 
     # Appending at the beginning
-    def addFirst(self,data):
+    def prepend(self,data):
         node=Node(data)
         if self.isEmpty():
             self.append(data)
