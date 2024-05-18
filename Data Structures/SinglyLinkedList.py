@@ -96,7 +96,7 @@ class SLL:
         self.__size-=1
 
     # Removing from the last
-    def removeLast(self):
+    def pop(self):
         if self.isEmpty():
             raise Exception('Empty Linked List')
         temp=self.__head
