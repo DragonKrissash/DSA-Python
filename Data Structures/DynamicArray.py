@@ -6,9 +6,11 @@ class DynamicArray:
         self.__data=[None]*cap
         self.__resizeFactor=2
 
+    #Function to resize
     def setResizeFactor(self,rf):
         self.__resizeFactor=rf
 
+    #Function to check index
     def __isvalid(self,ind):
         if 0 <= ind < self.__size:
             return True
@@ -39,6 +41,7 @@ class DynamicArray:
                 l.append(self.__data[i])
             return ", ".join(map(str,l))
 
+    #Function to resize as per user's choice
     def __resize(self):
         new_array=[None]*self.__resizeFactor*self.__size
         for i in range(self.__size):
@@ -46,9 +49,11 @@ class DynamicArray:
         self.__capacity=self.__resizeFactor*self.__capacity
         self.__data=new_array
 
+    #Function to check if empty
     def isEmpty(self):
         return self.__size==0
 
+    #Function to append at last
     def append(self,val):
         if self.__size<self.__capacity:
             self.__data[self.__size]=val
@@ -57,6 +62,7 @@ class DynamicArray:
             self.__resize()
             self.append(val)
 
+    #Function to append at any index
     def addAt(self,index,data):
         if index>self.__size:
             raise Exception("Index out of bounds!")
@@ -72,6 +78,7 @@ class DynamicArray:
                 self.__resize()
                 self.addAt(index,data)
 
+    #Function to pop at last index
     def pop(self):
         if self.isEmpty():
             raise Exception("Empty list!")
@@ -79,6 +86,7 @@ class DynamicArray:
             self.__data[self.__size-1]=None
             self.__size-=1
 
+    #Function to remove from any index
     def removeAt(self,index):
         if self.isEmpty():
             raise Exception("Empty array!")
@@ -92,6 +100,8 @@ class DynamicArray:
                     self.__data[i]=self.__data[i+1]
                 self.__size-=1
 
+    #Function to rotate once
+    #Used in rotate k times 
     def rotateOnce(self):
         if self.isEmpty():
             raise Exception("Empty array!")
@@ -104,6 +114,7 @@ class DynamicArray:
                     self.__data[i]=self.__data[i-1]
                 self.__data[0]=x
 
+    #Function to rotate k times
     def rotate(self,k):
         if self.isEmpty():
             raise Exception("Empty array!")
@@ -111,6 +122,7 @@ class DynamicArray:
             for i in range(k):
                 self.rotateOnce()
 
+    #Function to reverse
     def reverse(self):
         if self.isEmpty():
             raise Exception("Empty array!")
@@ -121,12 +133,14 @@ class DynamicArray:
             self.__data=l
             del(l)
 
+    #Function to add at first
     def prepend(self,data):
         if self.isEmpty():
             raise Exception("Empty array!")
         else:
             self.addAt(0,data)
 
+    #Function to merge to arrays
     def merge(self,arr):
         if self.isEmpty():
             raise Exception("Empty array!")
@@ -155,6 +169,7 @@ class DynamicArray:
             self.__size+=len(arr)
             del(res_arr)
 
+    #Function to interleave to arrays
     def interleave(self,arr):
         if self.isEmpty():
             raise Exception("Empty array!")
@@ -181,12 +196,14 @@ class DynamicArray:
             del(l)
             self.__size+=len(arr)
 
+    #Function to get middle element
     def midElement(self):
         if self.isEmpty():
             raise Exception("Empty array!")
         else:
             return self.__data[(self.__size)//2]
 
+    #Function to search for x
     def find(self,x):
         if self.isEmpty():
             raise Exception("Empty array!")
@@ -196,6 +213,7 @@ class DynamicArray:
                     return ind
             return -1
 
+    #Function to split the array at given index
     def split(self,ind):
         if self.isEmpty():
             raise Exception("Empty array!")
