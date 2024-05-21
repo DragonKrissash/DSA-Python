@@ -44,12 +44,46 @@ class Stack:
             trav=trav.next
         return '->'.join(l)
 
+    def insertAtBottom(self,x):
+        if self.isEmpty():
+            self.push(x)
+        else:
+            y=self.pop()
+            self.insertAtBottom(x)
+            self.push(y)
+
+    def reverse(self):
+        if self.isEmpty():
+            pass
+        else:
+            y=self.pop()
+            self.reverse()
+            self.insertAtBottom(y)
+
+    def sortedInsert(self,x):
+        if self.isEmpty() or self.top()<=x:
+            self.push(x)
+        else:
+            y=self.pop()
+            self.sortedInsert(x)
+            self.push(y)
+
+    def sort(self):
+        if self.isEmpty():
+            pass
+        else:
+            y=self.pop()
+            self.sort()
+            self.sortedInsert(y)
+
 st=Stack()
-st.push(7)
-st.push(9)
-print(st.size())
-st.push(189)
+st.push(10)
+st.push(6)
+st.push(8)
 print(st)
-print(st.top())
-print(st.pop())
+st.insertAtBottom(1)
+print(st)
+st.sortedInsert(5)
+print(st)
+st.sort()
 print(st)
