@@ -1,0 +1,50 @@
+class MinStack:
+
+    def __init__(self):
+        self.stack=[]
+        self.minstack=[]
+
+    def isEmpty():
+        return len(self.stack)==0
+
+    def push(self, val: int) -> None:
+        if self.isEmpty():
+            self.stack.append(val)
+            self.minstack.append(val)
+        else:
+            self.stack.append(val)
+            l=[]
+            while len(self.minstack)!=0 and self.minstack[-1]<val:
+                l.append(self.minstack[-1])
+                self.minstack.pop()
+            self.minstack.append(val)
+            while len(l)!=0:
+                self.minstack.append(l[-1])
+                l.pop()
+
+    def pop(self) -> None:
+        if self.isEmpty():
+            return None
+        else:
+            x=self.stack[-1]
+            self.stack.pop()
+            l=[]
+            while len(self.minstack)!=0 and self.minstack[-1]!=x:
+                l.append(self.minstack[-1])
+                self.minstack.pop()
+            self.minstack.pop()
+            while len(l)!=0:
+                self.minstack.append(l[-1])
+                l.pop()
+
+    def top(self) -> int:
+        if self.isEmpty():
+            return None
+        else:
+            return self.stack[-1]
+
+    def getMin(self) -> int:
+        if self.isEmpty():
+            return None
+        else:
+            return self.minstack[-1]
