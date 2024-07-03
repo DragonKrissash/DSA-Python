@@ -15,52 +15,78 @@ class BinaryTree:
 
     def append(self,data):
         node=Node(data)
-        if self.isEmpty():
-            self.root=node
-        else:
-            parent=self.root
-            child=self.root
-            while child is not None:
-                if child.data<data:
-                    parent=child
-                    child=child.rNode
-                elif child.data>data:
-                    parent=child
-                    child=child.rNode
-                else:
-                    pass
-            if parent.lNode is None and parent.rNode is not None:
-                parent.lNode=node
-            elif parent.rNode is None and parent.lNode is not None:
-                parent.rNode=node
-            elif parent.rNode is None and parent.lNode is None:
-                if parent.data<data:
-                    parent.rNode=node
-                elif parent.data>data:
-                    parent.lNode=node
+        prev=None
+        cur=self.root
+        appended=False
+        while not appended:
+            if cur==None:
+                if prev==None:
+                    self.root=node
+                    appended=True
+                elif prev.data < data:
+                    prev.rNode=node
+                    appended=True
+                elif prev.data > data:
+                    prev.lNode=node
+                    appended=True
+            elif cur.data>data:
+                prev=cur
+                cur=cur.lNode
+            elif cur.data<data:
+                prev=cur
+                cur=cur.rNode
         self.no_of_nodes+=1
 
     def inOrderTrav(self,temp):
           if temp is None:
               return
           self.inOrderTrav(temp.lNode)
-          print(f'{temp.data} ')
+          print(f'{temp.data} ',end=' ')
           self.inOrderTrav(temp.rNode)
 
+    def preOrderTrav(self,temp):
+        if temp is None:
+            return
+        print(f'{temp.data} ',end=' ')
+        self.preOrderTrav(temp.lNode)
+        self.preOrderTrav(temp.rNode)
+
+    def posOrderTrav(self,temp):
+        if temp is None:
+            return
+        self.posOrderTrav(temp.lNode)
+        self.preOrderTrav(temp.rNode)
+        print(f'{temp.data} ',end=' ')
 
     def inOrder(self):
         if self.isEmpty():
             print('Empty!')
         else:
             self.inOrderTrav(self.root)
+            print('')
+
+    def preOrder(self):
+        if self.isEmpty():
+            print('Empty!')
+        else:
+            self.preOrderTrav(self.root)
+            print('')
+
+    def posOrder(self):
+        if self.isEmpty():
+            print('Empty!')
+        else:
+            self.posOrderTrav(self.root)
+            print('')
+
 
 b=BinaryTree()
 b.append(5)
+b.append(25)
+b.append(1)
+b.append(12)
 b.append(3)
-b.append(7)
 b.append(2)
-b.append(4)
-b.append(6)
-b.append(8)
 b.inOrder()
-print('root node data: ',b.root.data)
+b.preOrder()
+b.posOrder()
