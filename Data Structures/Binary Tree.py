@@ -4,7 +4,7 @@ class Node:
         self.lNode=lNode
         self.rNode=rNode
 
-class BinaryTree:
+class BinarySearchTree:
 
     def __init__(self):
         self.no_of_nodes=0
@@ -79,14 +79,29 @@ class BinaryTree:
             self.posOrderTrav(self.root)
             print('')
 
+    def insert(self,data):
+        self.root=self.insert2(self.root,data)
 
-b=BinaryTree()
-b.append(5)
-b.append(25)
-b.append(1)
-b.append(12)
-b.append(3)
-b.append(2)
+    def insert2(self,root,data):
+        if root is None:
+            self.no_of_nodes+=1
+            return Node(data)
+        if data==root.data:
+            return root
+        if root.data<data:
+            root.rNode=self.insert2(root.rNode,data)
+            return root
+        else:
+            root.lNode=self.insert2(root.lNode,data)
+            return root
+
+b=BinarySearchTree()
+b.insert(5)
+b.insert(25)
+b.insert(1)
+b.insert(12)
+b.insert(3)
+b.insert(2)
 b.inOrder()
 b.preOrder()
 b.posOrder()
