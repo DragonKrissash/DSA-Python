@@ -78,10 +78,10 @@ class AVLTree:
             return node
 
     def __rightRightCase(self,node):
-        return self.__leftRotate(node)
+        return self.__rotateLeft(node)
 
     def __leftLeftCase(self,node):
-        return self.__rightRotate(node)
+        return self.__rotateRight(node)
     def __rightLeftCase(self,node):
         node.right=self.__rotateRight(node)
         return self.__rightRightCase(node)
@@ -143,3 +143,47 @@ class AVLTree:
 
         self.__update(node)
         return self.__balance(node)
+
+    def __get_order(self,node,key):
+        import bisect
+        l=[]
+        def get_traversal(node):
+            if node is None:
+                return
+            get_traversal(node.left)
+            l.append(node.value)
+            get_traversal(node.right)
+        get_traversal(node)
+        n=bisect.bisect_left(l,key)
+        return n
+
+
+    def order_of_key(self,key):
+        if self.__noOfNodes==0:
+            return 0
+        return self.__get_order(self.__root,key)
+
+    def get_by_order(self,k):
+        if self.__noOfNodes==0:
+            return 0
+        l=[]
+        def get_traversal(node):
+            if node is None:
+                return
+            get_traversal(node.left)
+            l.append(node.value)
+            get_traversal(node.right)
+        get_traversal(self.__root)
+        if k>len(l):
+            return None
+        return l[k-1]
+
+
+a=AVLTree()
+a.insert(5)
+a.insert(10)
+a.insert(3)
+a.insert(11)
+a.insert(1)
+a.insert(0)
+print(a.get_by_order(6))

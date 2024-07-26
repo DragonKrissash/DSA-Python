@@ -95,6 +95,44 @@ class BinarySearchTree:
             root.lNode=self.insert2(root.lNode,data)
             return root
 
+    def remove(self,value):
+        if value is None:
+            return False
+        if not self.find(value):
+            return False
+        else:
+            self.__root=self.__remove(self.__root,value)
+            self.__noOfNodes-=1
+            return True
+
+    def __remove(self,node,value):
+        if node.value==value:
+            if node.right is None and node.left is None:
+                del(node)
+                return None
+            elif node.left is None:
+                temp=node.right
+                del node
+                return temp
+            elif node.right is None:
+                temp=node.left
+                del node
+                return temp
+            else:
+                suc=node.left
+                while suc.right is not None:
+                    suc=suc.right
+                node.value=suc.value
+                node.left=self.__remove(node.left,suc.value)
+                return node
+        elif node.value>value:
+            node.left=self.__remove(node.left,value)
+        else:
+            node.right=self.__remove(node.right,value)
+
+        self.__update(node)
+        return self.__balance(node)
+
 b=BinarySearchTree()
 b.insert(5)
 b.insert(25)
